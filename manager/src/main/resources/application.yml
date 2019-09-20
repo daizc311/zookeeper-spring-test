@@ -1,2 +1,22 @@
 server:
   port: 8088
+
+
+spring:
+  cloud:
+    zookeeper:
+      connect-string: cn.dreamccc.club:2181
+      enabled: true
+      discovery:
+        root: /meta
+        metadata:
+          name: ${spring.application.name}
+          type: M
+
+  application:
+    name: manager
+  datasource:
+    url: jdbc:mysql://localhost:3306/test01?useUnicode=true&useSSL=true&serverTimezone=UTC
+    username: root
+    password: dzc9669
+    driver-class-name: com.mysql.cj.jdbc.Driver
