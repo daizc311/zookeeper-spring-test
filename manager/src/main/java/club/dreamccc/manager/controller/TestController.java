@@ -1,11 +1,14 @@
 package club.dreamccc.manager.controller;
 
-import club.dreamccc.manager.ZkService;
+import club.dreamccc.manager.service.ZkService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.curator.x.discovery.ServiceInstance;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.zookeeper.discovery.ZookeeperInstance;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +22,7 @@ import java.io.IOException;
  * @author Daizc
  * @date 2019/9/20
  */
+@Slf4j
 @RestController
 @RequestMapping("/test")
 public class TestController {
@@ -52,12 +56,13 @@ public class TestController {
     }
 
     @RequestMapping("/zk2")
-    public void zk2() throws IOException, KeeperException, InterruptedException {
-
-        zkService.cloneNode("/meta/manager", "/123");
+    public Object zk2() throws IOException, KeeperException, InterruptedException {
+        ServiceInstance<ZookeeperInstance> control = zkService.getPrimaryMetaInstance("control");
+//        zkService.cloneNode("/meta/manager", "/123");
+        return control.getPayload().getMetadata();
     }
 
-    @RequestMapping("/getNodeValue")
+    @RequestMapping("/zk3")
     public String getNodeValue(String nodePath) throws IOException, KeeperException, InterruptedException {
 
         return zkService.getNodeValue(nodePath);

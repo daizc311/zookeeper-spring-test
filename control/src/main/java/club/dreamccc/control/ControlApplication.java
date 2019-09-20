@@ -1,57 +1,19 @@
 package club.dreamccc.control;
 
-//@SpringBootApplication
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+/**
+ * <h2>ControlApplication</h2>
+ * <p>请添加描述</p>
+ *
+ * @author Daizc
+ * @date 2019/9/20
+ */
+@SpringBootApplication
 public class ControlApplication {
 
-//    @Autowired
-//    RedisTemplate redisTemplate;
-//
-//    public static void main(String[] args) {
-//        SpringApplication.run(ControlApplication.class, args);
-//    }
-//
-////    @Bean
-//    public RedisTemplate redisTemplateInit() {
-//        //设置序列化Key的实例化对象
-//        redisTemplate.setKeySerializer(new StringRedisSerializer());
-//        //设置序列化Value的实例化对象
-//        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-//        return redisTemplate;
-//    }
-//
-//    public static final String CACHE_NAME = "test";
-//
-//    @Bean
-//    public CachePool cachePool() {
-//
-//        CachePool cachePool = new CachePool();
-//        try {
-//            ConcurrentHashMap<String, Boolean> test = cachePool.createCacheMap(CACHE_NAME);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return cachePool;
-//    }
-//
-//    @Bean
-//    public AsyncTaskExecutor taskExecutor() {
-//        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-//        executor.setCorePoolSize(100);
-//        executor.setMaxPoolSize(1000);
-//
-////        ThreadPoolTaskExecutor executor2 = new ThreadPoolTaskExecutor();
-////        executor2.set
-//
-//
-//        return executor;
-//    }
-//
-//    @Bean(name = "ffmpegPulish")
-//    @Lazy
-//    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-//    public FFmpegPublish ffmpegPulish() {
-//
-//        return new FFmpegPublish();
-//    }
+    public static void main(String[] args) {
+        SpringApplication.run(ControlApplication.class, args);
+    }
 }

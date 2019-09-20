@@ -1,2 +1,16 @@
 server:
   port: 8090
+
+spring:
+  cloud:
+    zookeeper:
+      connect-string: cn.dreamccc.club:2181
+      enabled: true
+      discovery:
+        root: /meta
+        metadata:
+          name: ${spring.application.name}
+          type: C
+
+  application:
+    name: control

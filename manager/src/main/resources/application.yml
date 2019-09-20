@@ -20,3 +20,7 @@ spring:
     username: root
     password: dzc9669
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    club.dreamccc: debug

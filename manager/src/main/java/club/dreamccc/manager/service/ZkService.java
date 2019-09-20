@@ -1,15 +1,20 @@
-package club.dreamccc.manager;
+package club.dreamccc.manager.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.curator.x.discovery.ServiceInstance;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.admin.ZooKeeperAdmin;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
 import org.apache.zookeeper.data.Stat;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.zookeeper.discovery.ZookeeperInstance;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +25,7 @@ public class ZkService {
 
     @Autowired
     ZooKeeperAdmin zooKeeperAdmin;
-//    @Autowired
+    //    @Autowired
 //    ZooKeeper zooKeeper;
 
 
@@ -51,6 +56,24 @@ public class ZkService {
         return value;
     }
 
+    public ServiceInstance<ZookeeperInstance> getPrimaryMetaInstance(String applicationName) throws InterruptedException, IOException, KeeperException {
+        return this.getMetaInstance(applicationName, 0);
+    }
+
+    public ServiceInstance<ZookeeperInstance> getMetaInstance(String applicationName, int num) throws KeeperException, InterruptedException, IOException {
+
+        List<String> children = zooKeeperAdmin.getChildren("/meta/" + applicationName, false);
+
+        String nodeValue = this.getNodeValue(String.format("/meta/%s/%s",applicationName,children.get(num)));
+
+        ServiceInstance<ZookeeperInstance> serviceInstance = new ObjectMapper().readValue(nodeValue, new TypeReference<ServiceInstance<ZookeeperInstance>>() {
+        });
+
+        log.debug("{}",serviceInstance);
+
+        return serviceInstance;
+    }
+
     public void setNodeValue(String nodePath, String value) throws KeeperException, InterruptedException {
 
         log.debug("Setting property {} to {}", value, nodePath);
@@ -76,4 +99,8 @@ public class ZkService {
 
     }
 
+
+    class ServiceInstanceWrapper{
+
+    }
 }
