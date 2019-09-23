@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.x.discovery.ServiceInstance;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.admin.ZooKeeperAdmin;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,17 @@ public class ZkService {
 //    ZooKeeper zooKeeper;
 
 
+
+    public void removeNode(String targetPath) throws KeeperException, InterruptedException {
+
+        zooKeeperAdmin.delete(targetPath,-1);
+    }
+
+    public String createNode(String targetPath,String data) throws KeeperException, InterruptedException {
+
+        return zooKeeperAdmin.create(targetPath, data.getBytes(), ZooDefs.Ids.CREATOR_ALL_ACL, CreateMode.CONTAINER);
+    }
+
     public void cloneNode(String sourcePath, String targetPath) throws KeeperException, InterruptedException {
 //        List<String> children = zooKeeperAdmin.(sourcePath, false)
 
@@ -37,7 +50,7 @@ public class ZkService {
         List<ACL> acls = new ArrayList<>();
         acls.add(new ACL(0, new Id("anyone", "crdwa")));
 
-        String s = zooKeeperAdmin.create(targetPath, data, acls, CreateMode.CONTAINER);
+        String s = zooKeeperAdmin.create(targetPath, data,  ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.CONTAINER);
     }
 
     public void listen(String nodePath) throws KeeperException, InterruptedException {
@@ -46,11 +59,9 @@ public class ZkService {
     }
 
     public String getNodeValue(String nodePath) throws KeeperException, InterruptedException, UnsupportedEncodingException {
-        byte[] data = zooKeeperAdmin.getData(nodePath, event -> {
-            log.debug("getNode {} event {}", nodePath, event);
-        }, new Stat());
+        byte[] data = zooKeeperAdmin.getData(nodePath, event -> log.debug("getNode {} event {}", nodePath, event), new Stat());
 
-        String value = new String(data, "UTF-8");
+        String value = new String(data, StandardCharsets.UTF_8);
 
         log.debug("Getting  property{} form Node {}", value, nodePath);
         return value;
