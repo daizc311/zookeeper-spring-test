@@ -2,13 +2,11 @@ package club.dreamccc.manager.controller;
 
 import club.dreamccc.manager.service.ZkService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.curator.x.discovery.ServiceInstance;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.zookeeper.discovery.ZookeeperInstance;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,11 +40,11 @@ public class TestController {
 
                 if (watchedEvent.getType() == Event.EventType.NodeCreated) {
 
-                    try {
-                        zkService.cloneNode(watchedEvent.getPath(), "/path1/123");
-                    } catch (KeeperException | InterruptedException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+////                        zkService.cloneNode(watchedEvent.getPath(), "/path1/123");
+//                    } catch (KeeperException | InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
         });
@@ -57,14 +55,15 @@ public class TestController {
 
     @RequestMapping("/zk2")
     public Object zk2() throws IOException, KeeperException, InterruptedException {
-        ServiceInstance<ZookeeperInstance> control = zkService.getPrimaryMetaInstance("control");
+
+
 //        zkService.cloneNode("/meta/manager", "/123");
-        return control.getPayload().getMetadata();
+        return  zkService.getChildren("/meta");
     }
 
     @RequestMapping("/zk3")
     public String getNodeValue(String nodePath) throws IOException, KeeperException, InterruptedException {
-
-        return zkService.getNodeValue(nodePath);
+return "";
+//        return zkService.getNodeValue(nodePath);
     }
 }
