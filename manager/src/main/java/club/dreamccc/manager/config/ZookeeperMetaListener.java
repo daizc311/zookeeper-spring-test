@@ -8,6 +8,7 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 
 import javax.annotation.Resource;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class ZookeeperMetaListener implements PathChildrenCacheListener {
@@ -20,18 +21,24 @@ public class ZookeeperMetaListener implements PathChildrenCacheListener {
 
         String childName = pathChildrenCacheEvent.getData().getPath().replace("/meta/", "");
 
+        String testPath = "/test/" + childName;
+
         if (Objects.equals(pathChildrenCacheEvent.getType(), PathChildrenCacheEvent.Type.CHILD_ADDED)) {
+            log.error(childName + ":CHILD_ADDED");
 
-            log.error(childName+"CHILD_ADDED");
+            zkService.createPersistentNode(testPath, null);
+            IntStream.range(0,5).boxed().forEach(integer -> {
 
-        }else if (Objects.equals(pathChildrenCacheEvent.getType(), PathChildrenCacheEvent.Type.CHILD_REMOVED)){
+                zkService.createPersistentNode(testPath+"/"+integer, null);
+            });
 
-            log.error(childName+"CHILD_REMOVED");
+        } else if (Objects.equals(pathChildrenCacheEvent.getType(), PathChildrenCacheEvent.Type.CHILD_REMOVED)) {
+            log.error(childName + ":CHILD_REMOVED");
+
+            zkService.deleteChildrenIfNeeded(testPath);
+
 
         }
-
-
-
 
 
     }

@@ -9,8 +9,10 @@ spring:
       discovery:
         root: /meta
         metadata:
+          id: ${spring.application.name}
           name: ${spring.application.name}
           type: S
+          url: www.baidu.com
 
   application:
     name: server

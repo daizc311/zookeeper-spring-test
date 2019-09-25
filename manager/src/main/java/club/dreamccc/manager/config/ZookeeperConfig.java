@@ -3,7 +3,6 @@ package club.dreamccc.manager.config;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.framework.recipes.cache.*;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.admin.ZooKeeperAdmin;
@@ -73,49 +72,10 @@ public class ZookeeperConfig {
 
         zkCurator.start();
 
-        //1. 创建一个PathChildrenCache
-        PathChildrenCache pathChildrenCache = new PathChildrenCache(zkCurator, "/meta", true);
-
-        //2. 添加目录监听器
-        pathChildrenCache.getListenable().addListener((curatorFramework, pathChildrenCacheEvent) -> {
-
-            log.error("");
-        });
-
-        //3. 启动监听器
-        pathChildrenCache.start(PathChildrenCache.StartMode.BUILD_INITIAL_CACHE);
-
         return zkCurator;
     }
 
     private static final String META_NAME_SPACE = "/meta";
 
-    class CreateMetaListener implements TreeCacheListener {
-        @Override
-        public void childEvent(CuratorFramework curatorFramework, TreeCacheEvent treeCacheEvent)throws Exception {
-            log.info("[{}],节点被创建",treeCacheEvent.getType());
-//            if (Objects.nonNull(event.getPath())&&event.getPath().startsWith(META_NAME_SPACE)) {
-//
-//            }
-        }
-    }
-
-    class DestroyMetaListener implements TreeCacheListener {
-        @Override
-        public void childEvent(CuratorFramework curatorFramework, TreeCacheEvent treeCacheEvent)throws Exception {
-            log.info("[{}],节点被销毁",treeCacheEvent);
-//            if (Objects.nonNull(event.getPath())&&event.getPath().startsWith(META_NAME_SPACE)) {
-//
-//            }
-        }
-    }
-
-//    @Bean(value = "zkClient")
-//    ZooKeeper zooKeeper() throws IOException {
-//
-//        return new ZooKeeper(zkUrl, 1000, event -> {
-//            log.info("创建ZooKeeper成功[{}]", event);
-//        });
-//    }
 
 }
