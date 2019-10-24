@@ -63,12 +63,4 @@ public class ManagerApplication {
 //
 //        return executor;
 //    }
-//
-//    @Bean(name = "ffmpegPulish")
-//    @Lazy
-//    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-//    public FFmpegPublish ffmpegPulish() {
-//
-//        return new FFmpegPublish();
-//    }
 }
