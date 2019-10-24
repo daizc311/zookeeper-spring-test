@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Server[9022][server_2]" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="server" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="club.dreamccc.server.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="SPRING_BOOT_MAIN_CLASS" value="club.dreamccc.server.ServerApplication" />
+    <option name="PROGRAM_PARAMETERS" value="--server.port=9022 --spring.application.name=server_2" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
