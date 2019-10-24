@@ -1,5 +1,5 @@
 server:
-  port: 9087
+  port: 9001
 
 spring:
   cloud:
@@ -10,7 +10,7 @@ spring:
         root: /meta
         metadata:
           name: ${spring.application.name}
-          type: C
+          type: CONTROL
 
   application:
     name: control

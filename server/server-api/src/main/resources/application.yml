@@ -1,5 +1,5 @@
 server:
-  port: 9021
+  port: 9011
 
 
 spring:
@@ -11,15 +11,11 @@ spring:
         root: /meta
         metadata:
           name: ${spring.application.name}
-          type: MANAGER
+          type: SERVER
 
   application:
-    name: manager
-  datasource:
-    url: jdbc:mysql://localhost:3306/test01?useUnicode=true&useSSL=true&serverTimezone=UTC
-    username: root
-    password: dzc9669
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: server
+
 
 logging:
   level:
