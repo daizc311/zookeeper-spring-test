@@ -23,4 +23,6 @@ spring:
 
 logging:
   level:
-    club.dreamccc: debug
+    root: info
+    org.springframework.cloud.zookeeper.*: trace
+    club.dreamccc.*: debug
