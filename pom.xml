@@ -6,7 +6,7 @@
     <modules>
         <module>control</module>
         <module>manager</module>
-        <module>club.dreamccc.server</module>
+        <module>server</module>
         <module>common</module>
     </modules>
     <parent>
@@ -70,6 +70,11 @@
             <dependency>
                 <groupId>club.dreamccc</groupId>
                 <artifactId>server-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>club.dreamccc</groupId>
+                <artifactId>server-admin</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

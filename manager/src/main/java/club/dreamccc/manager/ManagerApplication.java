@@ -14,8 +14,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @date 2019/9/20
  */
 
-@SpringBootApplication
-@EnableFeignClients
+@SpringBootApplication(scanBasePackages = {"club.dreamccc"})
+@EnableFeignClients(basePackages = {"club.dreamccc.server.api.interfaces"})
 @EnableDiscoveryClient
 @EnableAsync
 public class ManagerApplication {

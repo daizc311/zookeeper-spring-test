@@ -15,4 +15,10 @@ spring:
           url: www.baidu.com
 
   application:
-    name: club.dreamccc.server
+    name: server
+
+logging:
+  level:
+    root: debug
+    org.springframework.cloud.zookeeper.*: trace
+    club.dreamccc.*: debug

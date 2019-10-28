@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Server[9021][server]" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <module name="server" />
+    <module name="server-admin" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="club.dreamccc.server.*" />
