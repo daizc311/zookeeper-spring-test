@@ -18,9 +18,6 @@ public class ZkService {
     //创建连接实例
     @Resource
     private CuratorFramework zkCurator;
-
-    
-
     /**
      * 创建永久Zookeeper节点
      * @author zifangsky
