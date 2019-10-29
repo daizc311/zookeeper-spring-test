@@ -21,12 +21,13 @@ import org.springframework.scheduling.annotation.EnableAsync
 @EnableAsync
 open class ManagerApplication {
 
-    fun main(args: Array<String>) {
-        SpringApplication.run(ManagerApplication::class.java, *args)
+    // 编译后变成一个内部类 默认名称就是Companion
+    companion object {
+        // java的main方法 在kotlin里就是个普通方法 放在伴生对象里 打上@JvmStatic注解 声明为真正的JVM静态方法
+        // 被 @JvmStatic 注解的 fun 和 field 会在外部类中 生成对应的代理方法
+        @JvmStatic
+        fun main(args: Array<String>) {
+            SpringApplication.run(ManagerApplication::class.java, *args)
+        }
     }
-
-}
-
-fun main(args: Array<String>) {
-    ManagerApplication().main(args)
 }
